@@ -1,0 +1,10 @@
+*{
+	box-sizing: border-box;
+}
+body{
+		background-color: white/*#232323*/;
+}
+.center{
+		text-align: center;
+}
+	
