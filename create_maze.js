@@ -7,7 +7,7 @@ const H = M
 
 //---Cantidad de celdas (ancho y alto) que tiene el laberinto
 const cells = []
-const maze = 32
+const maze = 16
 const mazeW = maze
 const mazeH = maze
 
@@ -21,7 +21,7 @@ function setup() {
 	const canvas = createCanvas(W, H)
 	canvas.parent('#canvasHolder')
 
-	for (let y = 0; y < mazeH; y++) {
+	for (let y = 0; y < mazeH; y++) { //----Creamos las MxM celdas
 		const row = []
 		for (let x = 0; x < mazeW; x++) {
 			row.push(new Cell(x, y))
@@ -136,7 +136,7 @@ function draw() {
         
 
     }
-
+    
 	for (let y = 0; y < mazeH; y++) {
 		for (let x = 0; x < mazeW; x++) {
 			cells[y][x].draw(pixelSize)
