@@ -30,7 +30,7 @@ class Cell {
 		rect(i, j, pixelSize, pixelSize)
 
 		stroke(0)
-		strokeWeight(2)
+		strokeWeight(4)
 		noFill()
 		if (this.west) {
 			line(i, j, i, j + pixelSize)
