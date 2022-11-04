@@ -11,8 +11,8 @@ const cells = []
 //const n1 = document.getElementById("WidthAndHeight")//----Obtenemos el tamaño por teclado
 //const maze = Number(document.forms.mazeform.WidthAndHeight.value)
 //console.log(maze)
-var mazeW = Number(document.forms.mazeform.xy.value)
-var mazeH = Number(document.forms.mazeform.xy.value)
+const mazeW = 10//Number(document.forms.mazeform.xy.value)
+const mazeH = 10//Number(document.forms.mazeform.xy.value)
 
 //---Stack
 const stack = []
