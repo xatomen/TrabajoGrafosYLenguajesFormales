@@ -8,17 +8,38 @@
 	
 	<link href="style.css" rel="stylesheet" type="text/css" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.min.js"></script>
-
-    <script src="iniciar.js"></script>
-
-	<script src="create_maze.js"></script>
 	<script src="cell.js"></script>
-
-
+	<script src="create_maze.js"></script>
+	
 </head>
 
 <body>
+	<div id="content">
+		<div id="details">
+			<form id="mazeform" action="javascript:">
+				<table width="100%">
+					<tbody>
+						<tr>
+							<td>
+								Ancho y alto
+							</td>
+							<td>
+								<input style="width: 60px;" value="10" name="xy" type="text">
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div>
+					<button name="createMaze" onclick="setup()">Crear Laberinto</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	
+
 	<div id="canvasHolder" class="center"></div>
+
+
 </body>
 
 </html>

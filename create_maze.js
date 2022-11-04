@@ -7,9 +7,12 @@ const H = M
 
 //---Cantidad de celdas (ancho y alto) que tiene el laberinto
 const cells = []
-const maze = 16
-const mazeW = maze
-const mazeH = maze
+//const maze = 10
+//const n1 = document.getElementById("WidthAndHeight")//----Obtenemos el tamaño por teclado
+//const maze = Number(document.forms.mazeform.WidthAndHeight.value)
+//console.log(maze)
+var mazeW = Number(document.forms.mazeform.xy.value)
+var mazeH = Number(document.forms.mazeform.xy.value)
 
 //---Stack
 const stack = []
