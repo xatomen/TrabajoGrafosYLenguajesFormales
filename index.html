@@ -10,30 +10,16 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.min.js"></script>
 	<script  src="cell.js"></script>
 	<script  src="create_maze.js"></script>
-	
+
 </head>
 
 <body>
 	<div id="content">
-		<div id="details">
-			<form id="mazeform" action="javascript:">
-				<table width="100%">
-					<tbody>
-						<tr>
-							<td>
-								Ancho y alto
-							</td>
-							<td>
-								<input style="width: 60px;" value="10" name="WH" id="WH" type="number">
-							</td>
-						</tr>
-					</tbody>
-				</table>
-				<div>
-					<button name="createMaze">Crear Laberinto</button>
-				</div>
-			</form>
-		</div>
+		<form>
+			Ingresar tamaño laberinto <input type="text" name="WH" id="WH">
+			<button type="button" onclick="obtener_valor()">BOTON</button>
+		</form>
+		<button type="button" onclick="setup()">Ejecutar programa</button>
 	</div>
 	
 

@@ -1,5 +1,7 @@
 //import Cell from '.cell'
 
+
+
 //---Ancho y alto del recuadro que contiene al laberinto
 const M = 800
 const W = M
@@ -7,20 +9,17 @@ const H = M
 
 //---Cantidad de celdas (ancho y alto) que tiene el laberinto
 const cells = []
-//const maze = 10
-//const n1 = document.getElementById("WidthAndHeight")//----Obtenemos el tamaño por teclado
-//const maze = Number(document.forms.mazeform.WidthAndHeight.value)
-//console.log(maze)
-<<<<<<< HEAD
-const maze = Number(document.getElementsByName.WH.value)
+
+var valor
+function obtener_valor(){
+    valor = Number(document.getElementById('WH').value)
+	console.log(valor)
+}
+const maze = 10
 const mazeW = maze
 const mazeH = maze
-console.log(maze)
-=======
-const mazeW = 10//Number(document.forms.mazeform.xy.value)
-const mazeH = 10//Number(document.forms.mazeform.xy.value)
+console.log(2)
 
->>>>>>> ed12c28b99d88a0ea1ff4a42b8df1076bfb1608e
 //---Stack
 const stack = []
 
@@ -29,6 +28,14 @@ const pixelSize = M/maze
 
 
 function setup() {
+    console.log(maze)
+    if(valor==10){
+        create()
+        draw()
+    }
+}
+
+function create(){
 	const canvas = createCanvas(W, H)
 	canvas.parent('#canvasHolder')
 
@@ -39,7 +46,7 @@ function setup() {
 		}
 		cells.push(row)
 	}
-
+    /*
     //---Salida laberinto
     const rxf = Math.round(Math.random()*mazeW)  //---Elegimos el inicio, en este caso, en cualquier parte de la parte superior
     const ryf = mazeH-1  //---Elegimos el inicio, en este caso, siempre en la parte superior
@@ -48,7 +55,7 @@ function setup() {
     last.visited //---La última celda la marcamos como visitada
     last.south = false //---Le quitamos el borde inferior
     stack.push(last) //---La insertamos en el stack
-
+*/
     //---Entrada laberinto
     const rxi = Math.round(Math.random()*mazeW)  //---Elegimos el inicio, en este caso, en cualquier parte de la parte superior
     const ryi = 0  //---Elegimos el inicio, en este caso, siempre en la parte superior
@@ -57,7 +64,6 @@ function setup() {
     first.visited //---La primera celda la marcamos como visitada
     first.north = false //---Le quitamos el borde superior
     stack.push(first) //---La insertamos en el stack
-
 }
 
 //----Dibujamos el laberinto
@@ -144,8 +150,6 @@ function draw() {
             stack.pop() //---Volvemos hacia atras
         }
         
-        
-
     }
     
 	for (let y = 0; y < mazeH; y++) {
@@ -166,7 +170,5 @@ function draw() {
             pixelSize/2
         )
     }
-    
-
     
 }
