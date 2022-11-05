@@ -1,4 +1,4 @@
-
+//import Cell from '.cell'
 
 //---Ancho y alto del recuadro que contiene al laberinto
 const M = 800
@@ -11,14 +11,16 @@ const cells = []
 //const n1 = document.getElementById("WidthAndHeight")//----Obtenemos el tamaño por teclado
 //const maze = Number(document.forms.mazeform.WidthAndHeight.value)
 //console.log(maze)
-var mazeW = Number(document.forms.mazeform.xy.value)
-var mazeH = Number(document.forms.mazeform.xy.value)
-
+const maze = Number(document.getElementsByName.WH.value)
+const mazeW = maze
+const mazeH = maze
+console.log(maze)
 //---Stack
 const stack = []
 
 //---Tamaño de las celdas del laberinto
 const pixelSize = M/maze
+
 
 function setup() {
 	const canvas = createCanvas(W, H)
