@@ -1,75 +1,50 @@
-//import Cell from '.cell'
-
-
-
 //---Ancho y alto del recuadro que contiene al laberinto
 const M = 800
 const W = M
 const H = M
 
-//---Cantidad de celdas (ancho y alto) que tiene el laberinto
+
+
+const maze = 20
+const mazeW = maze
+const mazeH = maze
+
+   //---Cantidad de celdas (ancho y alto) que tiene el laberinto
 const cells = []
-
-var valor
-function obtener_valor(){
-    valor = Number(document.getElementById('WH').value)
-	console.log(valor)
-}
-var maze = 10
-var mazeW = 10
-var mazeH = 10
-
 //---Stack
 const stack = []
 
 //---Tamaño de las celdas del laberinto
-const pixelSize = M/10
+const pixelSize = M/maze
 
+function setup(){
+    const canvas = createCanvas(W, H)
+    canvas.parent('#canvasHolder')
 
-function setup() {
+    console.log("aca estamoas")
     
-    //if(valor==10){
-        //maze = 10
-        console.log(maze)
-        create()
-        //draw(maze,maze)
-    //}
-}
-
-function create(){
-	const canvas = createCanvas(W, H)
-	canvas.parent('#canvasHolder')
-
-	for (let y = 0; y < mazeH; y++) { //----Creamos las MxM celdas
+    for (let y = 0; y < mazeH; y++) { //----Creamos las MxM celdas
 		const row = []
 		for (let x = 0; x < mazeW; x++) {
 			row.push(new Cell(x, y))
 		}
 		cells.push(row)
 	}
+        //---Entrada laberinto
+        const rxi = Math.round(Math.random()*mazeW)  //---Elegimos el inicio, en este caso, en cualquier parte de la parte superior
+        const ryi = 0  //---Elegimos el inicio, en este caso, siempre en la parte superior
     
-    //---Salida laberinto
-    const rxf = Math.round(Math.random()*mazeW)  //---Elegimos el inicio, en este caso, en cualquier parte de la parte superior
-    const ryf = mazeH-1  //---Elegimos el inicio, en este caso, siempre en la parte superior
-
-    const last = cells[ryf][rxf] //---Última celda
-    last.visited //---La última celda la marcamos como visitada
-    last.south = false //---Le quitamos el borde inferior
-    stack.push(last) //---La insertamos en el stack
-
-    //---Entrada laberinto
-    const rxi = Math.round(Math.random()*mazeW)  //---Elegimos el inicio, en este caso, en cualquier parte de la parte superior
-    const ryi = 0  //---Elegimos el inicio, en este caso, siempre en la parte superior
-
-    const first = cells[ryi][rxi] //---Primera celda
-    first.visited //---La primera celda la marcamos como visitada
-    first.north = false //---Le quitamos el borde superior
-    stack.push(first) //---La insertamos en el stack
+        const first = cells[ryi][rxi] //---Primera celda
+        first.visited = true//---La primera celda la marcamos como visitada
+        first.north = false //---Le quitamos el borde superior
+        stack.push(first) //---La insertamos en el stack
 }
 
-//----Dibujamos el laberinto
 function draw() {
-	background(255)
+    
+
+    var color = 125
+	background(color)
 
     if(stack.length > 0){
         let current = stack[stack.length-1]
@@ -172,4 +147,8 @@ function draw() {
         )
     }
     
+}
+
+function solve(){
+    background(100)
 }

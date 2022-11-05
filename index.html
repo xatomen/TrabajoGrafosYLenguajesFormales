@@ -8,22 +8,23 @@
 	
 	<link href="style.css" rel="stylesheet" type="text/css" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.min.js"></script>
-	<script  src="cell.js"></script>
-	<script  src="create_maze.js"></script>
+	<script src="cell.js"></script>
+	
+	<script src="maze.js"></script>
 
 </head>
 
 <body>
 	<div id="content">
 		<form>
-			Ingresar tamaño laberinto <input type="text" name="WH" id="WH">
-			<button type="button" onclick="obtener_valor()">BOTON</button>
+			Ingresar tamaño laberinto <input type="text" name="WH" id="WH" >
+			<button type="button">BOTON</button>
 		</form>
-		<button type="button" onclick="setup()">Ejecutar programa</button>
+		<button type="button" >Ejecutar programa</button>
 	</div>
 	
-
 	<div id="canvasHolder" class="center"></div>
+	
 
 
 </body>
