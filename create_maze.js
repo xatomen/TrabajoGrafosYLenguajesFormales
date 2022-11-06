@@ -65,6 +65,8 @@ function create(){
     first.visited //---La primera celda la marcamos como visitada
     first.north = false //---Le quitamos el borde superior
     stack.push(first) //---La insertamos en el stack
+
+
 }
 
 //----Dibujamos el laberinto
