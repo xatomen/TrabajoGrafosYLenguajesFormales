@@ -12,6 +12,9 @@ class Cell {
 		this.east = true
 		this.south = true
 
+		this.entry = false
+		this.final = false
+
 	}
 
 	//----Dibujar muros del laberinto----

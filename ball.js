@@ -6,10 +6,10 @@ class Ball{
 		//----¿Fue visitado?----
 		this.visited = false
 		//----Muros----
-		this.west = false
-		this.north = false
-		this.east = false
-		this.south = false
+		// this.west = false
+		// this.north = false
+		// this.east = false
+		// this.south = false
 	}
     draw(pixelSize){
         let i = this.x * pixelSize
