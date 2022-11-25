@@ -250,7 +250,7 @@ function solve_maze(){  /*Cruce = N° de posibilidades de avanzar a otra celda*/
         }
         /*------HALLAR LA FORMA DE DEVOLVERSE AL ULTIMO NODO Y MARCAR EN OTRO COLOR LOS NODOS "QUE NO SE VAN A UTILIZAR" O "YA RECORRIDOS"------*/
         else{
-            while(cells[posy][posx].final == false){
+            //while(cells[posy][posx].final == false){
                 if(cells[posy][posx].south == false && solve[posy+1][posx].visited==false){
                     posy += 1
                     solve[posy][posx].visited=true
@@ -279,7 +279,7 @@ function solve_maze(){  /*Cruce = N° de posibilidades de avanzar a otra celda*/
                                     console.log("oeste")
                                     return solve_maze()
                 }
-            }
+            //}
             
         }
     }
