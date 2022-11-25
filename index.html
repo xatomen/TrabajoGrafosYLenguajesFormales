@@ -5,21 +5,16 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
 	<title>Laberinto</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.min.js"></script>
+	<link href="styles/style.css" rel="stylesheet" type="text/css" />
 	
-	<link href="style.css" rel="stylesheet" type="text/css" />
-	<script src="data.js"></script>
+	<script src="scripts/cell.js"></script>
+	<script src="scripts/maze.js"></script>
+	<script src="scripts/ball.js"></script>
 
 </head>
 
 <body>
-	<div id="content">
-		<form>
-			Ingresar tamaño laberinto <input type="number" id="WidthHeight">
-			<button type="button" onclick="execute()">Ingresar valor</button>
-			
-		</form>
-		<button type="button" onclick="location.href='maze.html'">Lanzar aplicación</button>
-	</div>
 	<div id="canvasHolder" class="center"></div>
 </body>
 
