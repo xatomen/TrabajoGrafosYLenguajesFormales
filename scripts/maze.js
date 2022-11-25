@@ -248,6 +248,7 @@ function solve_maze(){  /*Cruce = N° de posibilidades de avanzar a otra celda*/
         console.log("Cruces: ",cruce)
         //Elegimos el camino a partir de los cruces
         if(cruce==0){//No podemos seguir avanzando porque hay muro
+            solve[posy][posx].pop()
             return 0
         }
 
