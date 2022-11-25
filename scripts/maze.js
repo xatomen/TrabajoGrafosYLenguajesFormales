@@ -245,11 +245,12 @@ function solve_maze(){  /*Cruce = N° de posibilidades de avanzar a otra celda*/
         if(cells[posy][posx].west == false){cruce+=1}
         console.log("Cruces: ",cruce)
         //Elegimos el camino a partir de los cruces
-        if(cruce==0 || cruce==1){//No podemos seguir avanzando porque hay muro
+        if(cruce==0){//No podemos seguir avanzando porque hay muro
             return 0
         }
+
         /*------HALLAR LA FORMA DE DEVOLVERSE AL ULTIMO NODO Y MARCAR EN OTRO COLOR LOS NODOS "QUE NO SE VAN A UTILIZAR" O "YA RECORRIDOS"------*/
-        if(cruce==2){
+        if(cruce==1 || cruce==2){
             //while(cells[posy][posx].final == false){
                 if(cells[posy][posx].south == false && solve[posy+1][posx].visited==false){
                     posy += 1
