@@ -1,11 +1,10 @@
+var maze = prompt("Ingrese tamaño laberinto","5")
 //---Ancho y alto del recuadro que contiene al laberinto
 const M = 800
 const W = M
 const H = M
 
-
-
-const maze = 10
+//const maze = RS
 const mazeW = maze
 const mazeH = maze
 

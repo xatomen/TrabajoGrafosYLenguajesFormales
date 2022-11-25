@@ -1,5 +1,3 @@
-//import Cell from '.cell'
-
 
 
 //---Ancho y alto del recuadro que contiene al laberinto
@@ -10,14 +8,14 @@ const H = M
 //---Cantidad de celdas (ancho y alto) que tiene el laberinto
 const cells = []
 
-var valor
-function obtener_valor(){
-    valor = Number(document.getElementById('WH').value)
-	console.log(valor)
-}
-var maze = 10
-var mazeW = 10
-var mazeH = 10
+// var valor
+// function obtener_valor(){
+//     valor = Number(document.getElementById('WH').value)
+// 	console.log(valor)
+// }
+var maze = WH
+var mazeW = maze
+var mazeH = maze
 
 //---Stack
 const stack = []
