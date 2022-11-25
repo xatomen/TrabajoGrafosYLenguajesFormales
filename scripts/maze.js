@@ -288,32 +288,28 @@ function solve_maze(){  /*Cruce = N° de posibilidades de avanzar a otra celda*/
                 solve[posy][posx].visited=true
                 solve_stack.push(solve[posy][posx])
                 console.log("sur")
-                return solve_maze()
-                return solve_maze()
+                return solve_maze() + solve_maze()
             }
             if(cells[posy][posx].north == false && solve[posy-1][posx].visited==false){
                                 posy -= 1
                                 solve[posy][posx].visited=true
                                 solve_stack.push(solve[posy][posx])
                                 console.log("norte")
-                                return solve_maze()
-                                return solve_maze()
+                                return solve_maze() + solve_maze()
             }
             if(cells[posy][posx].east == false && solve[posy][posx+1].visited==false){
                                 posx += 1
                                 solve[posy][posx].visited=true
                                 solve_stack.push(solve[posy][posx])
                                 console.log("este")
-                                return solve_maze()
-                                return solve_maze()
+                                return solve_maze() + solve_maze()
             }
             if(cells[posy][posx].west == false && solve[posy][posx-1].visited==false){
                                 posx -= 1
                                 solve[posy][posx].visited=true
                                 solve_stack.push(solve[posy][posx])
                                 console.log("oeste")
-                                return solve_maze()
-                                return solve_maze()
+                                return solve_maze() + solve_maze()
             }
         }
         if(cruce==4){
@@ -322,36 +318,28 @@ function solve_maze(){  /*Cruce = N° de posibilidades de avanzar a otra celda*/
                 solve[posy][posx].visited=true
                 solve_stack.push(solve[posy][posx])
                 console.log("sur")
-                return solve_maze()
-                return solve_maze()
-                return solve_maze()
+                return solve_maze() + solve_maze() + solve_maze()
             }
             if(cells[posy][posx].north == false && solve[posy-1][posx].visited==false){
                                 posy -= 1
                                 solve[posy][posx].visited=true
                                 solve_stack.push(solve[posy][posx])
                                 console.log("norte")
-                                return solve_maze()
-                                return solve_maze()
-                                return solve_maze()
+                                return solve_maze() + solve_maze() + solve_maze()
             }
             if(cells[posy][posx].east == false && solve[posy][posx+1].visited==false){
                                 posx += 1
                                 solve[posy][posx].visited=true
                                 solve_stack.push(solve[posy][posx])
                                 console.log("este")
-                                return solve_maze()
-                                return solve_maze()
-                                return solve_maze()
+                                return solve_maze() + solve_maze() + solve_maze()
             }
             if(cells[posy][posx].west == false && solve[posy][posx-1].visited==false){
                                 posx -= 1
                                 solve[posy][posx].visited=true
                                 solve_stack.push(solve[posy][posx])
                                 console.log("oeste")
-                                return solve_maze()
-                                return solve_maze()
-                                return solve_maze()
+                                return solve_maze() + solve_maze() + solve_maze()
             }
         }
     }
