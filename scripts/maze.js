@@ -230,6 +230,8 @@ function keyPressed(){
         solve_stack.push(solve[posy][posx])
 }
 
+/*AGREGAR POSX Y POSY DE MANERA LOCAL EN LA FUNCIÓN*/
+
 /*Implementación recursiva para solucionar el laberinto*/
 function solve_maze(){  /*Cruce = N° de posibilidades de avanzar a otra celda*/
     var cruce=0
