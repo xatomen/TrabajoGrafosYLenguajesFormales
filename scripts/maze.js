@@ -227,125 +227,146 @@ function keyPressed(){
     
         }
         solve[posy][posx].visited=true
+        solve[posy][posx].posy = posy
+        solve[posy][posx].posx = posx
         solve_stack.push(solve[posy][posx])
 }
 
-/*AGREGAR POSX Y POSY DE MANERA LOCAL EN LA FUNCIÓN*/
-
-/*Implementación recursiva para solucionar el laberinto*/
-function solve_maze(){  /*Cruce = N° de posibilidades de avanzar a otra celda*/
+var sum_temp = 0
+var celda
+var anterior
+var largo
+var contador_flag = 0
+//var flag = 0
+function solve_maze(){
     var cruce=0
-    //Verificamos si la celda actual es final
-    if(cells[posy][posx].final==true){
-        console.log("Proceso Finalizado")
-    }
-    else{
-        //Calculamos cantidad de cruces
-        if(cells[posy][posx].south == false){cruce+=1}
-        if(cells[posy][posx].north == false){cruce+=1}
-        if(cells[posy][posx].east == false){cruce+=1}
-        if(cells[posy][posx].west == false){cruce+=1}
-        console.log("Cruces: ",cruce)
-        //Elegimos el camino a partir de los cruces
-        if(cruce==0){//No podemos seguir avanzando porque hay muro
-            solve_stack([posy][posx].pop()) //---------------------------------------
-            return 0
-        }
 
-        /*------HALLAR LA FORMA DE DEVOLVERSE AL ULTIMO NODO Y MARCAR EN OTRO COLOR LOS NODOS "QUE NO SE VAN A UTILIZAR" O "YA RECORRIDOS"------*/
-        if(cruce==1 || cruce==2){
-            //while(cells[posy][posx].final == false){
+        console.log("Índice: ", solve_stack.length)
+        //Verificamos si la celda actual es final
+        if(cells[posy][posx].final==true){
+            console.log("Proceso Finalizado")
+        }
+        else{
+            
+            //Calculamos cantidad de cruces
+            if(cells[posy][posx].south == false){cruce+=1}
+            if(cells[posy][posx].north == false){cruce+=1}
+            if(cells[posy][posx].east == false){cruce+=1}
+            if(cells[posy][posx].west == false){cruce+=1}
+            console.log("Cruces: ",cruce)
+            //Elegimos el camino a partir de los cruces
+            if((cruce==1) || (cells[posy][posx].south == true && cells[posy][posx].north == true && cells[posy][posx].east == true && cells[posy][posx].west == true)){//No podemos seguir avanzando porque hay muro
+                console.log("CASO 0")
+                console.log("No hay más camino por recorrer")
+                //Nos devolvemos a la celda anterior del stack
+                var op=0
+                console.log(solve_stack[solve_stack.length-1]["flag"])
+                // while(contador_flag>0){
+                    while(solve_stack[solve_stack.length-1]["flag"]==false){
+                        op++
+                        largo = solve_stack.length-1
+                        posy = solve_stack[largo-1]["y"]
+                        posx = solve_stack[largo-1]["x"]
+                        solve_stack.pop()
+                        console.log(op)
+                    }
+                    op++
+                        largo = solve_stack.length-1
+                        posy = solve_stack[largo-1]["y"]
+                        posx = solve_stack[largo-1]["x"]
+                        solve_stack.pop()
+                        console.log(op)
+                // }
+                
+                return 0
+            }
+
+            else{
+                /*TERMINAR ESTE CASO ESPECIAL!!!!!!!!!!*/
+                if(cruce>1 && solve_stack[solve_stack.length-1]["flag"]==true && ((cells[posy][posx].south == false && solve[posy+1][posx].visited==false) || (cells[posy][posx].north == false && solve[posy-1][posx].visited==false) || (cells[posy][posx].east == false && solve[posy][posx+1].visited==false) || (cells[posy][posx].west == false && solve[posy][posx-1].visited==false))){
+                    console.log("CASO ESPECIAL!!!!!!!!!!!!!")
+                }
+
+                console.log("CASO 1")
                 if(cells[posy][posx].south == false && solve[posy+1][posx].visited==false){
                     posy += 1
                     solve[posy][posx].visited=true
+                    solve[posy][posx].posy = posy
+                    solve[posy][posx].posx = posx
+                    if(cruce>2){
+                        console.log("FLAG")
+                        solve[posy][posx].flag=true
+                        contador_flag++
+                    }
+                    console.log(solve[posy][posx])
                     solve_stack.push(solve[posy][posx])
                     console.log("sur")
-                    return solve_maze() 
+                    return 0
                 }
                 if(cells[posy][posx].north == false && solve[posy-1][posx].visited==false){
-                                    posy -= 1
-                                    solve[posy][posx].visited=true
-                                    solve_stack.push(solve[posy][posx])
-                                    console.log("norte")
-                                    return solve_maze()
+                    posy -= 1
+                    solve[posy][posx].visited=true
+                    solve[posy][posx].posy = posy
+                    solve[posy][posx].posx = posx
+                    if(cruce>2){
+                        console.log("FLAG")
+                        solve[posy][posx].flag=true
+                        contador_flag++
+                    }
+                    console.log(solve[posy][posx])
+                    solve_stack.push(solve[posy][posx])
+                    console.log("norte")
+                    return 0
                 }
                 if(cells[posy][posx].east == false && solve[posy][posx+1].visited==false){
-                                    posx += 1
-                                    solve[posy][posx].visited=true
-                                    solve_stack.push(solve[posy][posx])
-                                    console.log("este")
-                                    return solve_maze()
+                    posx += 1
+                    solve[posy][posx].visited=true
+                    solve[posy][posx].posy = posy
+                    solve[posy][posx].posx = posx
+                    if(cruce>2){
+                        console.log("FLAG")
+                        solve[posy][posx].flag=true
+                        contador_flag++
+                    }
+                    console.log(solve[posy][posx])
+                    solve_stack.push(solve[posy][posx])
+                    console.log("este")
+                    return 0
                 }
                 if(cells[posy][posx].west == false && solve[posy][posx-1].visited==false){
-                                    posx -= 1
-                                    solve[posy][posx].visited=true
-                                    solve_stack.push(solve[posy][posx])
-                                    console.log("oeste")
-                                    return solve_maze()
+                    posx -= 1
+                    solve[posy][posx].visited=true
+                    solve[posy][posx].posy = posy
+                    solve[posy][posx].posx = posx
+                    if(cruce>2){
+                        console.log("FLAG")
+                        solve[posy][posx].flag=true
+                        contador_flag++
+                    }
+                    console.log(solve[posy][posx])
+                    solve_stack.push(solve[posy][posx])
+                    console.log("oeste")
+                    return 0
                 }
-            //}
-            
-        }
-        if(cruce==3){
-            if(cells[posy][posx].south == false && solve[posy+1][posx].visited==false){
-                posy += 1
-                solve[posy][posx].visited=true
-                solve_stack.push(solve[posy][posx])
-                console.log("sur")
-                return solve_maze() + solve_maze()
-            }
-            if(cells[posy][posx].north == false && solve[posy-1][posx].visited==false){
-                                posy -= 1
-                                solve[posy][posx].visited=true
-                                solve_stack.push(solve[posy][posx])
-                                console.log("norte")
-                                return solve_maze() + solve_maze()
-            }
-            if(cells[posy][posx].east == false && solve[posy][posx+1].visited==false){
-                                posx += 1
-                                solve[posy][posx].visited=true
-                                solve_stack.push(solve[posy][posx])
-                                console.log("este")
-                                return solve_maze() + solve_maze()
-            }
-            if(cells[posy][posx].west == false && solve[posy][posx-1].visited==false){
-                                posx -= 1
-                                solve[posy][posx].visited=true
-                                solve_stack.push(solve[posy][posx])
-                                console.log("oeste")
-                                return solve_maze() + solve_maze()
+                            
             }
         }
-        if(cruce==4){
-            if(cells[posy][posx].south == false && solve[posy+1][posx].visited==false){
-                posy += 1
-                solve[posy][posx].visited=true
-                solve_stack.push(solve[posy][posx])
-                console.log("sur")
-                return solve_maze() + solve_maze() + solve_maze()
-            }
-            if(cells[posy][posx].north == false && solve[posy-1][posx].visited==false){
-                                posy -= 1
-                                solve[posy][posx].visited=true
-                                solve_stack.push(solve[posy][posx])
-                                console.log("norte")
-                                return solve_maze() + solve_maze() + solve_maze()
-            }
-            if(cells[posy][posx].east == false && solve[posy][posx+1].visited==false){
-                                posx += 1
-                                solve[posy][posx].visited=true
-                                solve_stack.push(solve[posy][posx])
-                                console.log("este")
-                                return solve_maze() + solve_maze() + solve_maze()
-            }
-            if(cells[posy][posx].west == false && solve[posy][posx-1].visited==false){
-                                posx -= 1
-                                solve[posy][posx].visited=true
-                                solve_stack.push(solve[posy][posx])
-                                console.log("oeste")
-                                return solve_maze() + solve_maze() + solve_maze()
-            }
-        }
+
+
+
+}
+
+function clear_stack(){
+    for(let i=0; i<solve_stack.length; i++){
+        solve_stack.pop()
     }
-    
+}
+
+var largo
+function show_solve_stack(){
+    // for(let i=0; i<solve_stack.length;i++){
+        largo = solve_stack.length
+        console.log(solve_stack[largo-1]["x"])
+        // console.log(largo)
+    // }
 }
