@@ -8,3 +8,60 @@ body{
 		text-align: center;
 }
 	
+#SolveMaze{
+	text-decoration:none;
+	font-weight: 600;
+	font-size: 20px;
+	color:#ffffff;
+	padding-top:15px;
+	padding-bottom:15px;
+	padding-left:40px;
+	padding-right:40px;
+	background-color:green;
+	border-color: black;
+	border-width: 5px;
+	border-style: solid;
+}
+
+#SolveMaze:hover{
+
+	padding: 50;
+	background: rgb(0, 189, 0);
+	color:white;
+
+}
+
+#SolveMaze:active{
+	padding:50;
+	background: rgb(0,189,0);
+	color:white
+}
+
+#RefreshPage{
+	text-decoration:none;
+	font-weight: 600;
+	font-size: 20px;
+	color:#ffffff;
+	padding-top:15px;
+	padding-bottom:15px;
+	padding-left:40px;
+	padding-right:40px;
+	background-color:rgb(1, 162, 211);
+	border-color: black;
+	border-width: 5px;
+	border-style: solid;
+}
+
+#RefreshPage:hover{
+
+	padding: 50;
+	background: rgb(0, 195, 255);
+	color:white;
+
+}
+
+#RefreshPage:active{
+	padding:50;
+	background: rgb(0, 195, 255);
+	color:white
+}

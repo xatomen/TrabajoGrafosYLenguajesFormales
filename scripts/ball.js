@@ -5,14 +5,7 @@ class Ball{
 		this.y = y
 		//----¿Fue visitado?----
 		this.visited = false
-		this.posy = 0
-		this.posx = 0
 		this.flag = false
-		//----Muros----
-		// this.west = false
-		// this.north = false
-		// this.east = false
-		// this.south = false
 	}
     draw(pixelSize){
         let i = this.x * pixelSize

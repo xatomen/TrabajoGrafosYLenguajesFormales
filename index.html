@@ -1,27 +1,41 @@
+
+<!--	Asignatura: Trabajo Grafos y Lenguajes Formales				-->
+<!--	Sección:	412												-->
+<!--	Profesor:	Michael Cristi									-->
+<!--	Desarrollado por:	-										-->
+<!--						-										-->
+<!--						-										-->
+<!--						-										-->
+
 <!DOCTYPE html>
 <html>
 
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width">
-	<title>Laberinto</title>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.min.js"></script>
-	<link href="styles/style.css" rel="stylesheet" type="text/css" />
-	
-	<script src="scripts/cell.js"></script>
-	<script src="scripts/maze.js"></script>
-	<script src="scripts/ball.js"></script>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width">
+		<title>Laberinto</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.min.js"></script>
+		<link href="styles/style.css" rel="stylesheet" type="text/css" />
+		
+		<script src="scripts/cell.js"></script>
+		<script src="scripts/maze.js"></script>
+		<script src="scripts/ball.js"></script>
 
-</head>
+	</head>
 
-<body>
-	<div id="canvasHolder" class="center"></div>
-	<div style="text-align: center;">
-		<button id="SolveMaze" onclick="solve_maze()">Solucionar laberinto</button>
-		<button id="ClearStack" onclick="clear_stack()">Limpiar stack</button>
-		<button id="ShowStack" onclick="show_solve_stack()">Mostrar stack</button>
-	</div>
-	
-</body>
+	<body>
+
+		<div id="banner" class="center">
+			<img src="./src/banner.png" width=25% height=25%>
+		</div>
+
+		<div id="canvasHolder" class="center"></div>
+		
+		<div style="text-align: center;">
+			<button id="SolveMaze" onclick="solve_maze()">Solucionar laberinto</button>
+			<button id="RefreshPage" onclick="refresh_page()">Refrescar página</button>
+		</div>
+		
+	</body>
 
 </html>

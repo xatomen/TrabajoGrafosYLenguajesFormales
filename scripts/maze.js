@@ -1,4 +1,4 @@
-var maze = prompt("Ingrese tamaño laberinto","5")
+var maze = prompt("Ingrese el tamaño laberinto","10")
 //---Ancho y alto del recuadro que contiene al laberinto
 const M = 800
 const W = M
@@ -11,6 +11,8 @@ const mazeH = maze
 let posx
 let posy
 
+var to_solve = 0
+
    //---Cantidad de celdas (ancho y alto) que tiene el laberinto
 const cells = []
 //---Stack
@@ -22,6 +24,7 @@ const solve_stack = []
 //---Tamaño de las celdas del laberinto
 const pixelSize = M/maze
 
+//Función para realizar el setup/inicialización del laberinto
 function setup(){
     const canvas = createCanvas(W, H)
     canvas.parent('#canvasHolder')
@@ -79,17 +82,11 @@ function draw() {
     var color = 125
 	background(color)
 
-    //fill(0,255,0);
-    //rect(posx*pixelSize,posy*pixelSize,pixelSize,pixelSize)
-    //noStroke()
-    //cells[5][5].draw(pixelSize)
-
     if(stack.length > 0){
         let current = stack[stack.length-1]
 
         let valid = false //---El camino elegido es valido/no valido
         let checks = 0 //---No buscar más caminos si es que ya revisamos norte, sur, este y oeste
-        //let flag = false //---Usamos esta bandera/indicador, para avisar cuando seleccionamos un "final" abajo del laberinto
         while(!valid && checks < 10){
             checks++
             let direction = Math.round(Math.random()*4) //---Seleccionamos una dirección aleatoria para ir
@@ -143,13 +140,6 @@ function draw() {
                         if(!next.visited){ //---Si no está visitado, es un camino valido
                             current.south = false    //---Quitamos el muro
                             next.north = false       //---Quitamos el muro
-                            /*if(flag==false){
-                                next.south = false
-                                flag = true
-                            }
-                            else{
-                                next.south = true
-                            }*/
                             next.visited = true //---Asignamos el true al visitado
                             stack.push(next) //---Añadimos al stack
                             valid = true
@@ -175,7 +165,6 @@ function draw() {
     //---Pintamos las celdas recorridas e insertamos círculos para observar la creación del laberinto
     for(let s = 0; s < stack.length; s++){
         const el = stack[s]
-        //noStroke()
         fill('#EA7317')
         ellipse(
             el.x*pixelSize+(pixelSize/2),
@@ -185,11 +174,11 @@ function draw() {
         )
     }
 
-    //Insertamos el primer cuadrado de solución
+    //Insertamos el primer cuadrado de solución (Cuadrado verde)
     solve[posy][posx].draw(pixelSize)
+    //Vamos dibujando el camino de la solución del laberinto
     for(let s=0; s<solve_stack.length; s++){
         const el = solve_stack[s]
-        //noStroke()
         if(el.visited==true){
             fill(255)
             ellipse(
@@ -198,180 +187,70 @@ function draw() {
             pixelSize/2,
             pixelSize/2
             )
-        }
-        
+        }   
     }
 
-}
-
-
-
-/*Función para manejar con las flechas (Para ir probando)*/
-function keyPressed(){
-    //let previus = solve[posy][posx]
-        if(keyCode==LEFT_ARROW && posx>0 && cells[posy][posx].west == false){
-            posx -= 1
-            
-        }
-        
-        if(keyCode==RIGHT_ARROW && posx<maze-1 && cells[posy][posx].east == false){
-          posx += 1
-    
-        }
-        if(keyCode==DOWN_ARROW && posy<maze-1 && cells[posy][posx].south == false){
-          posy += 1
-    
-        }
-        if(keyCode==UP_ARROW && posy>0 && cells[posy][posx].north == false){
-          posy -= 1
-    
-        }
-        solve[posy][posx].visited=true
-        solve[posy][posx].posy = posy
-        solve[posy][posx].posx = posx
-        solve_stack.push(solve[posy][posx])
-}
-
-var sum_temp = 0
-var celda
-var anterior
-var largo
-var contador_flag = 0
-
-function solve_maze(){
-    // setTimeout(()=>{console.log("espera")},100)
-    var cruce=0
-
-        console.log("Índice: ", solve_stack.length)
-        //Verificamos si la celda actual es final
+    //Si se presionó el botón de solucionar laberinto o este había sido presionado, se ejecuta la sentencia
+    if(to_solve == 1){
+        //Verificamos si la celda actual es la celda final, si es así, terminamos el proceso
         if(cells[posy][posx].final==true){
             console.log("Proceso Finalizado")
+            to_solve = 0
         }
+        //Si no es celda final, debemos seguir con el proceso
         else{
-            //Calculamos cantidad de cruces
-            if(cells[posy][posx].south == false){cruce+=1}
-            if(cells[posy][posx].north == false){cruce+=1}
-            if(cells[posy][posx].east == false){cruce+=1}
-            if(cells[posy][posx].west == false){cruce+=1}
-            console.log("Cruces: ",cruce)
-            //Elegimos el camino a partir de los cruces
-            // if((cruce==1) || (cells[posy][posx].south == true && cells[posy][posx].north == true && cells[posy][posx].east == true && cells[posy][posx].west == true)){//No podemos seguir avanzando porque hay muro
-            //     console.log("CASO 0")
-            //     console.log("No hay más camino por recorrer")
-            //     //Nos devolvemos a la celda anterior del stack
-            //     var op=0
-            //     console.log(solve_stack[solve_stack.length-1]["flag"])
-            //     // while(contador_flag>0){
-            //         while(solve_stack[solve_stack.length-1]["flag"]==false){
-            //             op++
-            //             largo = solve_stack.length-1
-            //             posy = solve_stack[largo-1]["y"]
-            //             posx = solve_stack[largo-1]["x"]
-            //             solve_stack.pop()
-            //             console.log(op)
-            //         }
-            //         op++
-            //             largo = solve_stack.length-1
-            //             posy = solve_stack[largo-1]["y"]
-            //             posx = solve_stack[largo-1]["x"]
-            //             solve_stack.pop()
-            //             console.log(op)
-            //     // }
-                
-            //     return solve_maze()
-            // }
-
-            // else{
-                console.log("CASO 1")
+                //Verificamos si podemos ir hacia el sur
                 if(cells[posy][posx].south == false && solve[posy+1][posx].visited==false){
-                    posy += 1
-                    solve[posy][posx].visited=true
-                    solve[posy][posx].posy = posy
-                    solve[posy][posx].posx = posx
-                    if(cruce>2){
-                        console.log("FLAG")
-                        solve[posy][posx].flag=true
-                        contador_flag++
-                    }
-                    console.log(solve[posy][posx])
-                    solve_stack.push(solve[posy][posx])
-                    console.log("sur")
-                    return solve_maze()
+                    posy += 1                           //Nos movemos al sur
+                    solve[posy][posx].visited=true      //Marcamos como celda visitada
+                    solve_stack.push(solve[posy][posx]) //Insertamos la celda en el stack de solución
+                    return 0                            //Acabamos con la "verificación"
                 }
+                //Verificamos si podemos ir al norte, pero primero, debemos verificar si la celda es celda de entrada o primera celda, si es así, no podemos viajar al norte
                 if(cells[posy][posx].entry == false){
+                    //Ahora verificamos si es posible ir al norte, verificando mediante los índices (posiciones) de las celdas
                     if(cells[posy][posx].north == false && solve[posy-1][posx].visited==false){
-                        posy -= 1
-                        solve[posy][posx].visited=true
-                        solve[posy][posx].posy = posy
-                        solve[posy][posx].posx = posx
-                        if(cruce>2){
-                            console.log("FLAG")
-                            solve[posy][posx].flag=true
-                            contador_flag++
-                        }
-                        console.log(solve[posy][posx])
-                        solve_stack.push(solve[posy][posx])
-                        console.log("norte")
-                        return solve_maze()
+                        posy -= 1                           //Nos movemos al norte
+                        solve[posy][posx].visited=true      //Marcamos como celda visitada
+                        solve_stack.push(solve[posy][posx]) //Insertamos la celda en el stack de solución
+                        return 0                            //Acabamos con la "verificación"
                     }
                 }
+                //Verificamos si podemos ir al este
                 if(cells[posy][posx].east == false && solve[posy][posx+1].visited==false){
-                    posx += 1
-                    solve[posy][posx].visited=true
-                    solve[posy][posx].posy = posy
-                    solve[posy][posx].posx = posx
-                    if(cruce>2){
-                        console.log("FLAG")
-                        solve[posy][posx].flag=true
-                        contador_flag++
-                    }
-                    console.log(solve[posy][posx])
-                    solve_stack.push(solve[posy][posx])
-                    console.log("este")
-                    return solve_maze()
+                    posx += 1                           //Nos movemos al este
+                    solve[posy][posx].visited=true      //Marcamos como celda visitada
+                    solve_stack.push(solve[posy][posx]) //Insertamos la celda en el stack de solución
+                    return 0                            //Acabamos con la "verificación"
                 }
+                //Verificamos si podemos ir al oeste
                 if(cells[posy][posx].west == false && solve[posy][posx-1].visited==false){
-                    posx -= 1
-                    solve[posy][posx].visited=true
-                    solve[posy][posx].posy = posy
-                    solve[posy][posx].posx = posx
-                    if(cruce>2){
-                        console.log("FLAG")
-                        solve[posy][posx].flag=true
-                        contador_flag++
-                    }
-                    console.log(solve[posy][posx])
-                    solve_stack.push(solve[posy][posx])
-                    console.log("oeste")
-                    return solve_maze()
+                    posx -= 1                           //Nos movemos al oeste
+                    solve[posy][posx].visited=true      //Marcamos como celda visitada
+                    solve_stack.push(solve[posy][posx]) //Insertamos la celda en el stack de solución
+                    return 0                            //Acabamos con la "verificación"
                 }
+                //Si no podemos viajar a ningún lado, es porque llegamos a un muro y debemos devolvernos, este else contempla ese caso
+                //y el caso en que ya nos estemos devolviendonos
                 else{
-                        largo = solve_stack.length-1
-                        posy = solve_stack[largo-1]["y"]
-                        posx = solve_stack[largo-1]["x"]
-                        solve_stack.pop()
-                        console.log("CASO ESPECIAL!!!!!!!!!!!!!")
-                        return solve_maze()
+                    var largo = solve_stack.length-1        //Obtenemos el largo del stack
+                    posy = solve_stack[largo-1]["y"]    //Nos movemos a la celda anterior
+                    posx = solve_stack[largo-1]["x"]    //Nos movemos a la celda anterior
+                    solve_stack.pop()                   //Sacamos la última celda que no nos sirve
+                    return 0                            //Acabamos con la "verificación"
                 }
                             
-            // }
         }
 
-
-
-}
-
-function clear_stack(){
-    for(let i=0; i<solve_stack.length; i++){
-        solve_stack.pop()
     }
+
+}
+//Función que se utiliza para indicar a la función draw de que debe comenzar a resovler el laberinto
+function solve_maze(){
+    to_solve = 1
 }
 
-var largo
-function show_solve_stack(){
-    // for(let i=0; i<solve_stack.length;i++){
-        largo = solve_stack.length
-        console.log(solve_stack[largo-1]["x"])
-        // console.log(largo)
-    // }
+//Función que permite refrescar la página
+function refresh_page(){
+    location.reload()
 }
