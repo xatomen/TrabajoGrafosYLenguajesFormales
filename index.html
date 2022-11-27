@@ -29,11 +29,20 @@
 			<img src="./src/banner.png" width=25% height=25%>
 		</div>
 
+		<div id="Data" style="text-align: center;">
+			<input id="WH" type="number" value="10">
+			<button id="SetValues" onclick=set_values()>Ingresar datos</button>
+			<button id="EnterValues" onclick="enter_values()">Crear laberinto</button>
+			<button id="SolveMaze" onclick="solve_maze()">Solucionar laberinto</button>
+			<button id="CleanSolve" onclick="clean_solve()">Limpiar solución</button>
+			<button id="RefreshPage" onclick="refresh_page()">Refrescar página</button>
+			
+		</div>
+
 		<div id="canvasHolder" class="center"></div>
 		
 		<div style="text-align: center;">
-			<button id="SolveMaze" onclick="solve_maze()">Solucionar laberinto</button>
-			<button id="RefreshPage" onclick="refresh_page()">Refrescar página</button>
+			
 		</div>
 		
 	</body>

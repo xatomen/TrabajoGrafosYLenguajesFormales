@@ -1,19 +1,27 @@
-var maze = prompt("Ingrese el tamaño laberinto","10")
+function set_values(){
+    maze = document.getElementById("WH").value
+    mazeW = maze
+    mazeH = maze
+    console.log(maze)
+}
+
 //---Ancho y alto del recuadro que contiene al laberinto
 const M = 800
 const W = M
 const H = M
 
-//const maze = RS
-const mazeW = maze
-const mazeH = maze
+var maze
+// var mazeW = maze
+// var mazeH = maze
+var mazeW
+var mazeH
 
 let posx
 let posy
 
 var to_solve = 0
 
-   //---Cantidad de celdas (ancho y alto) que tiene el laberinto
+//---Cantidad de celdas (ancho y alto) que tiene el laberinto
 const cells = []
 //---Stack
 const stack = []
@@ -22,10 +30,25 @@ const solve = []
 const solve_stack = []
 
 //---Tamaño de las celdas del laberinto
-const pixelSize = M/maze
+// const pixelSize = M/maze
+var pixelSize
+
+
+
+/*Función que permite inicializar la creación del laberinto*/
+var enter_v=0
+function enter_values(){
+    enter_v = 1
+    pixelSize = M/maze
+    return setup()
+}
 
 //Función para realizar el setup/inicialización del laberinto
 function setup(){
+    if(enter_v==0){
+        return 0
+    }
+
     const canvas = createCanvas(W, H)
     canvas.parent('#canvasHolder')
 
@@ -74,104 +97,119 @@ function setup(){
 
     posx=rxi
     posy=ryi
-
+    if(maze>25){fast_create_maze()}
 }
 
 function draw() {
+    if(enter_v==0){
+        return 0
+    }
 
     var color = 125
 	background(color)
-
-    if(stack.length > 0){
-        let current = stack[stack.length-1]
-
-        let valid = false //---El camino elegido es valido/no valido
-        let checks = 0 //---No buscar más caminos si es que ya revisamos norte, sur, este y oeste
-        while(!valid && checks < 10){
-            checks++
-            let direction = Math.round(Math.random()*4) //---Seleccionamos una dirección aleatoria para ir
-            switch(direction){
-                //---Oeste/West
-                case 0:
-                    if(current.x > 0){ //---Verificamos que no estemos en el borde izquierdo
-                        let next = cells[current.y][current.x-1]
-                        if(!next.visited){ //---Si no está visitado, es un camino valido
-                            current.west = false    //---Quitamos el muro
-                            next.east = false       //---Quitamos el muro
-                            next.visited = true //---Asignamos el true al visitado
-                            stack.push(next) //---Añadimos al stack
-                            valid = true
+    
+    if(maze<=25){
+        if(stack.length > 0){
+            let current = stack[stack.length-1]
+    
+            let valid = false //---El camino elegido es valido/no valido
+            let checks = 0 //---No buscar más caminos si es que ya revisamos norte, sur, este y oeste
+            while(!valid && checks < 10){
+                checks++
+                let direction = Math.round(Math.random()*4) //---Seleccionamos una dirección aleatoria para ir
+                switch(direction){
+                    //---Oeste/West
+                    case 0:
+                        if(current.x > 0){ //---Verificamos que no estemos en el borde izquierdo
+                            let next = cells[current.y][current.x-1]
+                            if(!next.visited){ //---Si no está visitado, es un camino valido
+                                current.west = false    //---Quitamos el muro
+                                next.east = false       //---Quitamos el muro
+                                next.visited = true //---Asignamos el true al visitado
+                                stack.push(next) //---Añadimos al stack
+                                valid = true
+                            }
                         }
-                    }
-                break;
-                
-                //---Norte/North
-                case 1:
-                    if(current.y > 0){ //---Verificamos que no estemos en el borde superior
-                        let next = cells[current.y-1][current.x]
-                        if(!next.visited){ //---Si no está visitado, es un camino valido
-                            current.north = false    //---Quitamos el muro
-                            next.south = false       //---Quitamos el muro
-                            next.visited = true //---Asignamos el true al visitado
-                            stack.push(next) //---Añadimos al stack
-                            valid = true
+                    break;
+                    
+                    //---Norte/North
+                    case 1:
+                        if(current.y > 0){ //---Verificamos que no estemos en el borde superior
+                            let next = cells[current.y-1][current.x]
+                            if(!next.visited){ //---Si no está visitado, es un camino valido
+                                current.north = false    //---Quitamos el muro
+                                next.south = false       //---Quitamos el muro
+                                next.visited = true //---Asignamos el true al visitado
+                                stack.push(next) //---Añadimos al stack
+                                valid = true
+                            }
                         }
-                    }
-                break;
-
-                //---Este/East
-                case 2:
-                    if(current.x < (mazeW-1)){ //---Verificamos que no estemos en el borde derecho
-                        let next = cells[current.y][current.x+1]
-                        if(!next.visited){ //---Si no está visitado, es un camino valido
-                            current.east = false    //---Quitamos el muro
-                            next.west = false       //---Quitamos el muro
-                            next.visited = true //---Asignamos el true al visitado
-                            stack.push(next) //---Añadimos al stack
-                            valid = true
+                    break;
+    
+                    //---Este/East
+                    case 2:
+                        if(current.x < (mazeW-1)){ //---Verificamos que no estemos en el borde derecho
+                            let next = cells[current.y][current.x+1]
+                            if(!next.visited){ //---Si no está visitado, es un camino valido
+                                current.east = false    //---Quitamos el muro
+                                next.west = false       //---Quitamos el muro
+                                next.visited = true //---Asignamos el true al visitado
+                                stack.push(next) //---Añadimos al stack
+                                valid = true
+                            }
                         }
-                    }
-                break;
-
-                //---Sur/South
-                case 3:
-                    if(current.y < (mazeH-1)){ //---Verificamos que no estemos en el borde derecho
-                        let next = cells[current.y+1][current.x]
-                        if(!next.visited){ //---Si no está visitado, es un camino valido
-                            current.south = false    //---Quitamos el muro
-                            next.north = false       //---Quitamos el muro
-                            next.visited = true //---Asignamos el true al visitado
-                            stack.push(next) //---Añadimos al stack
-                            valid = true
+                    break;
+                    
+                    //---Sur/South
+                    case 3:
+                        if(current.y < (mazeH-1)){ //---Verificamos que no estemos en el borde derecho
+                            let next = cells[current.y+1][current.x]
+                            if(!next.visited){ //---Si no está visitado, es un camino valido
+                                current.south = false    //---Quitamos el muro
+                                next.north = false       //---Quitamos el muro
+                                next.visited = true //---Asignamos el true al visitado
+                                stack.push(next) //---Añadimos al stack
+                                valid = true
+                            }
                         }
-                    }
-                break;
-
+                    break;
+    
+                }
+            }
+            
+            if(!valid){ //---En el caso de no poder ir a ningún lado
+                stack.pop() //---Volvemos hacia atras
+            }
+            console.log(stack.length)
+        }
+        
+        for (let y = 0; y < mazeH; y++) {
+            for (let x = 0; x < mazeW; x++) {
+                cells[y][x].draw(pixelSize)
             }
         }
-        
-        if(!valid){ //---En el caso de no poder ir a ningún lado
-            stack.pop() //---Volvemos hacia atras
-        }
-        
-    }
     
-	for (let y = 0; y < mazeH; y++) {
-		for (let x = 0; x < mazeW; x++) {
-			cells[y][x].draw(pixelSize)
-		}
-	}
+        //---Pintamos las celdas recorridas e insertamos círculos para observar la creación del laberinto
+        for(let s = 0; s < stack.length; s++){
+            const el = stack[s]
+            fill('#EA7317')
+            ellipse(
+                el.x*pixelSize+(pixelSize/2),
+                el.y*pixelSize+(pixelSize/2),
+                pixelSize/2,
+                pixelSize/2
+            )
+        }
+    }
+    else if(maze>25){
+        if(stack.length==0){
 
-    //---Pintamos las celdas recorridas e insertamos círculos para observar la creación del laberinto
-    for(let s = 0; s < stack.length; s++){
-        const el = stack[s]
-        fill('#EA7317')
-        ellipse(
-            el.x*pixelSize+(pixelSize/2),
-            el.y*pixelSize+(pixelSize/2),
-            pixelSize/2,
-            pixelSize/2
-        )
+            for (let y = 0; y < maze; y++) {
+                for (let x = 0; x < maze; x++) {
+                    cells[y][x].draw(pixelSize)
+                }
+            }
+        }
     }
 
     //Insertamos el primer cuadrado de solución (Cuadrado verde)
@@ -192,6 +230,15 @@ function draw() {
 
     //Si se presionó el botón de solucionar laberinto o este había sido presionado, se ejecuta la sentencia
     if(to_solve == 1){
+        if(maze>50){
+            frameRate(100)
+        }
+        if(maze>25 && maze<50){
+            frameRate(20)
+        }
+        if(maze<=25){
+            frameRate(5)
+        }
         //Verificamos si la celda actual es la celda final, si es así, terminamos el proceso
         if(cells[posy][posx].final==true){
             console.log("Proceso Finalizado")
@@ -245,6 +292,19 @@ function draw() {
     }
 
 }
+
+//Función que permite limpiar la solución del laberinto
+function clean_solve(){
+    if(solve_stack.length>1){
+        solve_stack[solve_stack.length-1]["visited"]=false
+        solve_stack[solve_stack.length-1]["flag"]=false
+        posy = solve_stack[solve_stack.length-2]["y"]
+        posx = solve_stack[solve_stack.length-2]["x"]
+        solve_stack.pop()
+        return clean_solve()
+    }
+}
+
 //Función que se utiliza para indicar a la función draw de que debe comenzar a resovler el laberinto
 function solve_maze(){
     to_solve = 1
@@ -253,4 +313,86 @@ function solve_maze(){
 //Función que permite refrescar la página
 function refresh_page(){
     location.reload()
+}
+
+function fast_create_maze(){
+    if(stack.length > 0){
+        let current = stack[stack.length-1]
+
+        let valid = false //---El camino elegido es valido/no valido
+        let checks = 0 //---No buscar más caminos si es que ya revisamos norte, sur, este y oeste
+        while(!valid && checks < 10){
+            checks++
+            let direction = Math.round(Math.random()*4) //---Seleccionamos una dirección aleatoria para ir
+            switch(direction){
+                //---Oeste/West
+                case 0:
+                    if(current.x > 0){ //---Verificamos que no estemos en el borde izquierdo
+                        let next = cells[current.y][current.x-1]
+                        if(!next.visited){ //---Si no está visitado, es un camino valido
+                            current.west = false    //---Quitamos el muro
+                            next.east = false       //---Quitamos el muro
+                            next.visited = true //---Asignamos el true al visitado
+                            stack.push(next) //---Añadimos al stack
+                            valid = true
+                        }
+                    }
+                    // fast_create_maze()
+                break;
+                
+                //---Norte/North
+                case 1:
+                    if(current.y > 0){ //---Verificamos que no estemos en el borde superior
+                        let next = cells[current.y-1][current.x]
+                        if(!next.visited){ //---Si no está visitado, es un camino valido
+                            current.north = false    //---Quitamos el muro
+                            next.south = false       //---Quitamos el muro
+                            next.visited = true //---Asignamos el true al visitado
+                            stack.push(next) //---Añadimos al stack
+                            valid = true
+                        }
+                    }
+                    // fast_create_maze()
+                break;
+
+                //---Este/East
+                case 2:
+                    if(current.x < (mazeW-1)){ //---Verificamos que no estemos en el borde derecho
+                        let next = cells[current.y][current.x+1]
+                        if(!next.visited){ //---Si no está visitado, es un camino valido
+                            current.east = false    //---Quitamos el muro
+                            next.west = false       //---Quitamos el muro
+                            next.visited = true //---Asignamos el true al visitado
+                            stack.push(next) //---Añadimos al stack
+                            valid = true
+                        }
+                    }
+                    // fast_create_maze()
+                break;
+                
+                //---Sur/South
+                case 3:
+                    if(current.y < (mazeH-1)){ //---Verificamos que no estemos en el borde derecho
+                        let next = cells[current.y+1][current.x]
+                        if(!next.visited){ //---Si no está visitado, es un camino valido
+                            current.south = false    //---Quitamos el muro
+                            next.north = false       //---Quitamos el muro
+                            next.visited = true //---Asignamos el true al visitado
+                            stack.push(next) //---Añadimos al stack
+                            valid = true
+                        }
+                    }
+                    // fast_create_maze()
+                break;
+
+            }
+        }
+        
+        if(!valid){ //---En el caso de no poder ir a ningún lado
+            stack.pop() //---Volvemos hacia atras
+        }
+        if(stack.length!=0){fast_create_maze()}
+        
+    }
+    console.log("listo")
 }
