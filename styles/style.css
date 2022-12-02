@@ -110,6 +110,35 @@ body{
 	color:white
 }
 
+#CleanSolve{
+	text-decoration:none;
+	font-weight: 600;
+	font-size: 20px;
+	color:#ffffff;
+	padding-top:15px;
+	padding-bottom:15px;
+	padding-left:40px;
+	padding-right:40px;
+	background-color:green;
+	border-color: black;
+	border-width: 5px;
+	border-style: solid;
+}
+
+#CleanSolve:hover{
+
+	padding: 50;
+	background: rgb(0, 189, 0);
+	color:white;
+
+}
+
+#CleanSolve:active{
+	padding:50;
+	background: rgb(0,189,0);
+	color:white
+}
+
 #RefreshPage{
 	text-decoration:none;
 	font-weight: 600;

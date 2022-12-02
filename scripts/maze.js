@@ -2,11 +2,13 @@ function set_values(){
     maze = document.getElementById("WH").value
     mazeW = maze
     mazeH = maze
-    console.log(maze)
+    // const button = document.getElementById("WH")
+    // button.disabled = true
+    // console.log(maze)
 }
 
 //---Ancho y alto del recuadro que contiene al laberinto
-const M = 800
+const M = 1500
 const W = M
 const H = M
 
@@ -45,6 +47,7 @@ function enter_values(){
 
 //Función para realizar el setup/inicialización del laberinto
 function setup(){
+    //Verificamos si se ha presionado el botón de crear laberinto
     if(enter_v==0){
         return 0
     }
@@ -97,10 +100,12 @@ function setup(){
 
     posx=rxi
     posy=ryi
+    //En el caso de que el laberinto sea mayor a 25, se creará rapidamente, por lo que se creara el laberinto antes de renderizarlo
     if(maze>25){fast_create_maze()}
 }
 
 function draw() {
+    //Verificamos si se ha presionado el botón de crear laberinto
     if(enter_v==0){
         return 0
     }
@@ -108,6 +113,7 @@ function draw() {
     var color = 125
 	background(color)
     
+    //Generamos el laberinto menor o igual a 25, tiene la condición por si el laberinto es mayor que 25 no se vuelva a generar
     if(maze<=25){
         if(stack.length > 0){
             let current = stack[stack.length-1]
@@ -183,6 +189,7 @@ function draw() {
             console.log(stack.length)
         }
         
+        //Dibujamos las celdas
         for (let y = 0; y < mazeH; y++) {
             for (let x = 0; x < mazeW; x++) {
                 cells[y][x].draw(pixelSize)
@@ -201,9 +208,9 @@ function draw() {
             )
         }
     }
+    //Si el laberinto es mayor a 25, ya fue generado, por lo que solo dibujamos las celdas
     else if(maze>25){
         if(stack.length==0){
-
             for (let y = 0; y < maze; y++) {
                 for (let x = 0; x < maze; x++) {
                     cells[y][x].draw(pixelSize)
@@ -315,8 +322,9 @@ function refresh_page(){
     location.reload()
 }
 
+//Función para crear el laberinto de manera rápida, usado para crear laberintos de tamaño mayor a 50
 function fast_create_maze(){
-    if(stack.length > 0){
+    while(stack.length > 0){
         let current = stack[stack.length-1]
 
         let valid = false //---El camino elegido es valido/no valido
@@ -337,7 +345,6 @@ function fast_create_maze(){
                             valid = true
                         }
                     }
-                    // fast_create_maze()
                 break;
                 
                 //---Norte/North
@@ -352,7 +359,6 @@ function fast_create_maze(){
                             valid = true
                         }
                     }
-                    // fast_create_maze()
                 break;
 
                 //---Este/East
@@ -367,7 +373,6 @@ function fast_create_maze(){
                             valid = true
                         }
                     }
-                    // fast_create_maze()
                 break;
                 
                 //---Sur/South
@@ -382,7 +387,6 @@ function fast_create_maze(){
                             valid = true
                         }
                     }
-                    // fast_create_maze()
                 break;
 
             }
@@ -391,7 +395,6 @@ function fast_create_maze(){
         if(!valid){ //---En el caso de no poder ir a ningún lado
             stack.pop() //---Volvemos hacia atras
         }
-        if(stack.length!=0){fast_create_maze()}
         
     }
     console.log("listo")
