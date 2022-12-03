@@ -1,10 +1,20 @@
+/*----------------------------------------------------
+                    Trabajo Final
+
+Asignatura: Grafos y Lenguajes Formales
+Sección:    413
+Profesor:   Michael Cristi
+Integrantes:    - Matías Urbina
+                - Luis Caro
+                - Jorge Gallardo
+                - Felipe Vera
+----------------------------------------------------*/
+
+//Función que permite setear los valores iniciales del laberinto
 function set_values(){
     maze = document.getElementById("WH").value
     mazeW = maze
     mazeH = maze
-    // const button = document.getElementById("WH")
-    // button.disabled = true
-    // console.log(maze)
 }
 
 //---Ancho y alto del recuadro que contiene al laberinto
@@ -13,8 +23,6 @@ const W = M
 const H = M
 
 var maze
-// var mazeW = maze
-// var mazeH = maze
 var mazeW
 var mazeH
 
@@ -35,8 +43,6 @@ const solve_stack = []
 // const pixelSize = M/maze
 var pixelSize
 
-
-
 /*Función que permite inicializar la creación del laberinto*/
 var enter_v=0
 function enter_values(){
@@ -54,8 +60,6 @@ function setup(){
 
     const canvas = createCanvas(W, H)
     canvas.parent('#canvasHolder')
-
-    console.log("aca estamoas")
     
     for (let y = 0; y < mazeH; y++) { //----Creamos las MxM celdas
 		const row = []
@@ -253,46 +257,46 @@ function draw() {
         }
         //Si no es celda final, debemos seguir con el proceso
         else{
-                //Verificamos si podemos ir hacia el sur
-                if(cells[posy][posx].south == false && solve[posy+1][posx].visited==false){
-                    posy += 1                           //Nos movemos al sur
+            //Verificamos si podemos ir hacia el sur
+            if(cells[posy][posx].south == false && solve[posy+1][posx].visited==false){
+                posy += 1                           //Nos movemos al sur
+                solve[posy][posx].visited=true      //Marcamos como celda visitada
+                solve_stack.push(solve[posy][posx]) //Insertamos la celda en el stack de solución
+                return 0                            //Acabamos con la "verificación"
+            }
+            //Verificamos si podemos ir al norte, pero primero, debemos verificar si la celda es celda de entrada o primera celda, si es así, no podemos viajar al norte
+            if(cells[posy][posx].entry == false){
+                //Ahora verificamos si es posible ir al norte, verificando mediante los índices (posiciones) de las celdas
+                if(cells[posy][posx].north == false && solve[posy-1][posx].visited==false){
+                    posy -= 1                           //Nos movemos al norte
                     solve[posy][posx].visited=true      //Marcamos como celda visitada
                     solve_stack.push(solve[posy][posx]) //Insertamos la celda en el stack de solución
                     return 0                            //Acabamos con la "verificación"
                 }
-                //Verificamos si podemos ir al norte, pero primero, debemos verificar si la celda es celda de entrada o primera celda, si es así, no podemos viajar al norte
-                if(cells[posy][posx].entry == false){
-                    //Ahora verificamos si es posible ir al norte, verificando mediante los índices (posiciones) de las celdas
-                    if(cells[posy][posx].north == false && solve[posy-1][posx].visited==false){
-                        posy -= 1                           //Nos movemos al norte
-                        solve[posy][posx].visited=true      //Marcamos como celda visitada
-                        solve_stack.push(solve[posy][posx]) //Insertamos la celda en el stack de solución
-                        return 0                            //Acabamos con la "verificación"
-                    }
-                }
-                //Verificamos si podemos ir al este
-                if(cells[posy][posx].east == false && solve[posy][posx+1].visited==false){
-                    posx += 1                           //Nos movemos al este
-                    solve[posy][posx].visited=true      //Marcamos como celda visitada
-                    solve_stack.push(solve[posy][posx]) //Insertamos la celda en el stack de solución
-                    return 0                            //Acabamos con la "verificación"
-                }
-                //Verificamos si podemos ir al oeste
-                if(cells[posy][posx].west == false && solve[posy][posx-1].visited==false){
-                    posx -= 1                           //Nos movemos al oeste
-                    solve[posy][posx].visited=true      //Marcamos como celda visitada
-                    solve_stack.push(solve[posy][posx]) //Insertamos la celda en el stack de solución
-                    return 0                            //Acabamos con la "verificación"
-                }
-                //Si no podemos viajar a ningún lado, es porque llegamos a un muro y debemos devolvernos, este else contempla ese caso
-                //y el caso en que ya nos estemos devolviendonos
-                else{
-                    var largo = solve_stack.length-1        //Obtenemos el largo del stack
-                    posy = solve_stack[largo-1]["y"]    //Nos movemos a la celda anterior
-                    posx = solve_stack[largo-1]["x"]    //Nos movemos a la celda anterior
-                    solve_stack.pop()                   //Sacamos la última celda que no nos sirve
-                    return 0                            //Acabamos con la "verificación"
-                }
+            }
+            //Verificamos si podemos ir al este
+            if(cells[posy][posx].east == false && solve[posy][posx+1].visited==false){
+                posx += 1                           //Nos movemos al este
+                solve[posy][posx].visited=true      //Marcamos como celda visitada
+                solve_stack.push(solve[posy][posx]) //Insertamos la celda en el stack de solución
+                return 0                            //Acabamos con la "verificación"
+            }
+            //Verificamos si podemos ir al oeste
+            if(cells[posy][posx].west == false && solve[posy][posx-1].visited==false){
+                posx -= 1                           //Nos movemos al oeste
+                solve[posy][posx].visited=true      //Marcamos como celda visitada
+                solve_stack.push(solve[posy][posx]) //Insertamos la celda en el stack de solución
+                return 0                            //Acabamos con la "verificación"
+            }
+            //Si no podemos viajar a ningún lado, es porque llegamos a un muro y debemos devolvernos, este else contempla ese caso
+            //y el caso en que ya nos estemos devolviendonos
+            else{
+                var largo = solve_stack.length-1        //Obtenemos el largo del stack
+                posy = solve_stack[largo-1]["y"]    //Nos movemos a la celda anterior
+                posx = solve_stack[largo-1]["x"]    //Nos movemos a la celda anterior
+                solve_stack.pop()                   //Sacamos la última celda que no nos sirve
+                return 0                            //Acabamos con la "verificación"
+            }
                             
         }
 
@@ -396,62 +400,5 @@ function fast_create_maze(){
             stack.pop() //---Volvemos hacia atras
         }
         
-    }
-    console.log("listo")
-}
-
-//TERMINAR SOLUCIÓN RAPIDA!!!!!!!!!!!
-function fast_solve(){
-    while(to_solve == 1){
-        //Verificamos si la celda actual es la celda final, si es así, terminamos el proceso
-        if(cells[posy][posx].final==true){
-            console.log("Proceso Finalizado")
-            to_solve = 0
-        }
-        //Si no es celda final, debemos seguir con el proceso
-        else{
-                //Verificamos si podemos ir hacia el sur
-                if(cells[posy][posx].south == false && solve[posy+1][posx].visited==false){
-                    posy += 1                           //Nos movemos al sur
-                    solve[posy][posx].visited=true      //Marcamos como celda visitada
-                    solve_stack.push(solve[posy][posx]) //Insertamos la celda en el stack de solución
-                    // return 0                            //Acabamos con la "verificación"
-                }
-                //Verificamos si podemos ir al norte, pero primero, debemos verificar si la celda es celda de entrada o primera celda, si es así, no podemos viajar al norte
-                if(cells[posy][posx].entry == false){
-                    //Ahora verificamos si es posible ir al norte, verificando mediante los índices (posiciones) de las celdas
-                    if(cells[posy][posx].north == false && solve[posy-1][posx].visited==false){
-                        posy -= 1                           //Nos movemos al norte
-                        solve[posy][posx].visited=true      //Marcamos como celda visitada
-                        solve_stack.push(solve[posy][posx]) //Insertamos la celda en el stack de solución
-                        // return 0                            //Acabamos con la "verificación"
-                    }
-                }
-                //Verificamos si podemos ir al este
-                if(cells[posy][posx].east == false && solve[posy][posx+1].visited==false){
-                    posx += 1                           //Nos movemos al este
-                    solve[posy][posx].visited=true      //Marcamos como celda visitada
-                    solve_stack.push(solve[posy][posx]) //Insertamos la celda en el stack de solución
-                    // return 0                            //Acabamos con la "verificación"
-                }
-                //Verificamos si podemos ir al oeste
-                if(cells[posy][posx].west == false && solve[posy][posx-1].visited==false){
-                    posx -= 1                           //Nos movemos al oeste
-                    solve[posy][posx].visited=true      //Marcamos como celda visitada
-                    solve_stack.push(solve[posy][posx]) //Insertamos la celda en el stack de solución
-                    // return 0                            //Acabamos con la "verificación"
-                }
-                //Si no podemos viajar a ningún lado, es porque llegamos a un muro y debemos devolvernos, este else contempla ese caso
-                //y el caso en que ya nos estemos devolviendonos
-                else{
-                    var largo = solve_stack.length-1        //Obtenemos el largo del stack
-                    posy = solve_stack[largo-1]["y"]    //Nos movemos a la celda anterior
-                    posx = solve_stack[largo-1]["x"]    //Nos movemos a la celda anterior
-                    solve_stack.pop()                   //Sacamos la última celda que no nos sirve
-                    // return 0                            //Acabamos con la "verificación"
-                }
-                            
-        }
-
     }
 }
