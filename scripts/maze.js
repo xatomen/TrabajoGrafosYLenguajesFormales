@@ -242,13 +242,13 @@ function draw() {
     //Si se presionó el botón de solucionar laberinto o este había sido presionado, se ejecuta la sentencia
     if(to_solve == 1){
         if(maze>50){
-            frameRate(100)
+            frameRate(100) //Cuadros por segundo de la animación
         }
         if(maze>25 && maze<50){
-            frameRate(20)
+            frameRate(20) //Cuadros por segundo de la animación
         }
         if(maze<=25){
-            frameRate(5)
+            frameRate(5) //Cuadros por segundo de la animación
         }
         //Verificamos si la celda actual es la celda final, si es así, terminamos el proceso
         if(cells[posy][posx].final==true){

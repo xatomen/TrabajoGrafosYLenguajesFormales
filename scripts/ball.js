@@ -16,7 +16,6 @@ class Ball{
 		this.y = y
 		//----¿Fue visitado?----
 		this.visited = false
-		this.flag = false
 	}
     draw(pixelSize){
         let i = this.x * pixelSize
