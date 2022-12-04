@@ -4,9 +4,9 @@
 Asignatura: Grafos y Lenguajes Formales
 Sección:    413
 Profesor:   Michael Cristi
-Integrantes:    - Matías Urbina
-                - Luis Caro
+Integrantes:    - Luis Caro
                 - Jorge Gallardo
+                - Matías Urbina
                 - Felipe Vera
 ----------------------------------------------------*/
 class Cell {
